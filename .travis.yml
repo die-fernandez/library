@@ -12,5 +12,3 @@ deploy:
     - "target/library-0.0.1-SNAPSHOT.war"
     - "Dockerfile"
   skip_cleanup: true
-  on:
-    tags: true
