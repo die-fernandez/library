@@ -6,9 +6,14 @@ sudo: required
 services:
   - docker
   
-deploy:
-  provider: releases
-  files:
-    - "target/library-0.0.1-SNAPSHOT.war"
-    - "Dockerfile"
-  skip_cleanup: true
+before_install:  
+    - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+
+script:  
+    #build the image
+    - docker build --no-cache -t diegofernandez/library-service .
+    #tag the build
+    - docker tag diegofernandez/library-service-image:latest diegofernandez/library-service:v1
+    #push the image to the repository
+    - docker push diegofernandez/library-service
+  
